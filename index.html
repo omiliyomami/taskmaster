@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskMaster: AI Assistant — Your Personal AI Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --accent: rgb(100, 211, 255);
+      --accent-dim: rgba(100, 211, 255, 0.15);
+      --accent-glow: rgba(100, 211, 255, 0.08);
+      --purple: rgb(160, 140, 255);
+      --amber: rgb(255, 179, 64);
+      --green: rgb(0, 255, 191);
+      --text: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.5);
+      --text-dim: rgba(255, 255, 255, 0.35);
+      --card-bg: rgba(255, 255, 255, 0.04);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --separator: rgba(255, 255, 255, 0.06);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #616169 0%, #2e3036 30%, #1e1e22 70%);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* ==============================
+       HERO
+    ============================== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #616169 0%, #2e3036 30%, #1e1e22 70%);
+      overflow: hidden;
+      padding: 80px 24px 60px;
+    }
+
+    /* Ambient orbs */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(100, 211, 255, 0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -10%;
+      right: -15%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(160, 140, 255, 0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* Grid pattern overlay */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 680px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-glow);
+      border: 1px solid var(--accent-dim);
+      border-radius: 100px;
+      padding: 8px 18px;
+      margin-bottom: 32px;
+      animation: fadeDown 0.6s ease both;
+    }
+    .hero-badge svg {
+      width: 14px;
+      height: 14px;
+      color: var(--accent);
+    }
+    .hero-badge span {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.3px;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 7vw, 72px);
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      line-height: 1.05;
+      margin-bottom: 20px;
+      animation: fadeUp 0.7s ease 0.1s both;
+    }
+    .hero h1 .gradient-text {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 50%, var(--accent) 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .hero-subtitle {
+      font-size: clamp(16px, 2.2vw, 20px);
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 520px;
+      margin: 0 auto 40px;
+      animation: fadeUp 0.7s ease 0.2s both;
+    }
+
+    /* App Store button */
+    .cta-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      animation: fadeUp 0.7s ease 0.3s both;
+    }
+    .app-store-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      padding: 14px 32px;
+      border-radius: 14px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 40px rgba(100, 211, 255, 0.15), 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .app-store-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 60px rgba(100, 211, 255, 0.25), 0 8px 30px rgba(0,0,0,0.4);
+    }
+    .app-store-btn svg {
+      width: 24px;
+      height: 24px;
+    }
+    .app-store-btn .btn-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .app-store-btn .btn-text .small {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      opacity: 0.7;
+      line-height: 1;
+    }
+    .app-store-btn .btn-text .big {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+    }
+
+    /* Phone mockups */
+    .phones-container {
+      position: relative;
+      z-index: 2;
+      margin-top: 60px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 0;
+      animation: fadeUp 0.8s ease 0.45s both;
+    }
+
+    .phone-wrapper {
+      position: relative;
+      flex-shrink: 0;
+    }
+    .phone-wrapper.left {
+      transform: rotate(-6deg) translateX(30px) translateY(20px);
+      z-index: 1;
+    }
+    .phone-wrapper.center {
+      z-index: 3;
+      transform: translateY(-10px);
+    }
+    .phone-wrapper.right {
+      transform: rotate(6deg) translateX(-30px) translateY(20px);
+      z-index: 1;
+    }
+
+    .phone-frame {
+      width: 220px;
+      height: 478px;
+      border-radius: 32px;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.1);
+      background: #000;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+      position: relative;
+    }
+    .phone-wrapper.center .phone-frame {
+      width: 240px;
+      height: 520px;
+      border-radius: 36px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 80px rgba(100, 211, 255, 0.08), 0 0 0 1px rgba(255,255,255,0.08);
+    }
+
+    .phone-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Reflection glow under center phone */
+    .phone-glow {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 80px;
+      background: radial-gradient(ellipse, rgba(100, 211, 255, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ==============================
+       FEATURES
+    ============================== */
+    .features {
+      padding: 100px 24px 80px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .features-header h2 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+    .features-header p {
+      color: var(--text-muted);
+      font-size: 16px;
+      max-width: 460px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .feature-card:hover {
+      border-color: rgba(255,255,255,0.12);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+    .feature-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .feature-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* ==============================
+       BOTTOM CTA
+    ============================== */
+    .bottom-cta {
+      text-align: center;
+      padding: 60px 24px 80px;
+    }
+    .bottom-cta h2 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 20px;
+    }
+    .bottom-cta p {
+      color: var(--text-muted);
+      font-size: 15px;
+      margin-bottom: 32px;
+    }
+
+    /* ==============================
+       FOOTER
+    ============================== */
+    .site-footer {
+      border-top: 1px solid var(--separator);
+      padding: 40px 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--accent-glow);
+      border: 1px solid var(--accent-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .footer-logo svg {
+      width: 16px;
+      height: 16px;
+      color: var(--accent);
+    }
+    .footer-brand span {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    .footer-copyright {
+      width: 100%;
+      text-align: center;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--separator);
+    }
+    .footer-copyright p {
+      color: var(--text-dim);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* ==============================
+       ANIMATIONS
+    ============================== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==============================
+       RESPONSIVE
+    ============================== */
+    @media (max-width: 768px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .phones-container {
+        margin-top: 48px;
+      }
+      .phone-frame {
+        width: 150px;
+        height: 326px;
+        border-radius: 24px;
+      }
+      .phone-wrapper.center .phone-frame {
+        width: 170px;
+        height: 369px;
+        border-radius: 28px;
+      }
+      .phone-wrapper.left {
+        transform: rotate(-6deg) translateX(20px) translateY(14px);
+      }
+      .phone-wrapper.right {
+        transform: rotate(6deg) translateX(-20px) translateY(14px);
+      }
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+      .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .phone-frame {
+        width: 120px;
+        height: 260px;
+        border-radius: 20px;
+      }
+      .phone-wrapper.center .phone-frame {
+        width: 140px;
+        height: 304px;
+        border-radius: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span>AI-Powered Task Automation</span>
+      </div>
+
+      <h1>Your tasks.<br><span class="gradient-text">Handled by AI.</span></h1>
+
+      <p class="hero-subtitle">Create a task, set a schedule, and let your personal AI agent run it — delivering clean reports while you focus on what matters.</p>
+
+      <div class="cta-group">
+        <a href="#" class="app-store-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <div class="btn-text">
+            <span class="small">Download on the</span>
+            <span class="big">App Store</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Phone mockups -->
+    <div class="phones-container">
+      <div class="phone-wrapper left">
+        <div class="phone-frame">
+          <img src="https://wmstatic.global.ssl.fastly.net/ml/7180625-f-60ba0110-3053-41ec-94f5-14d67e1c9685.png?width=422&height=916" alt="TaskMaster screenshot" loading="lazy">
+        </div>
+      </div>
+      <div class="phone-wrapper center">
+        <div class="phone-frame">
+          <img src="https://wmstatic.global.ssl.fastly.net/ml/7180625-f-60ba0110-3053-41ec-94f5-14d67e1c9685.png?width=422&height=916" alt="TaskMaster screenshot" loading="lazy">
+        </div>
+        <div class="phone-glow"></div>
+      </div>
+      <div class="phone-wrapper right">
+        <div class="phone-frame">
+          <img src="https://wmstatic.global.ssl.fastly.net/ml/7180625-f-60ba0110-3053-41ec-94f5-14d67e1c9685.png?width=422&height=916" alt="TaskMaster screenshot" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FEATURES ========== -->
+  <section class="features">
+    <div class="features-header">
+      <h2>Why TaskMaster?</h2>
+      <p>A smarter way to get things done — powered by AI, designed for your life.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon" style="background: rgba(100, 211, 255, 0.08); border: 1px solid rgba(100, 211, 255, 0.15);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgb(100, 211, 255)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <h3>AI-Powered Tasks</h3>
+        <p>Describe what you need in plain language. Your AI agent understands and executes — no templates, no complexity.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" style="background: rgba(160, 140, 255, 0.08); border: 1px solid rgba(160, 140, 255, 0.15);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgb(160, 140, 255)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3>Scheduled Automation</h3>
+        <p>Set it and forget it. Schedule tasks to run daily, weekly, or at any custom time — your agent works while you sleep.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" style="background: rgba(0, 255, 191, 0.08); border: 1px solid rgba(0, 255, 191, 0.15);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgb(0, 255, 191)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <h3>Clean Reports</h3>
+        <p>Every task delivers a polished, readable report. Get the insights you need without sifting through noise.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BOTTOM CTA ========== -->
+  <section class="bottom-cta">
+    <h2>Ready to automate your life?</h2>
+    <p>Download TaskMaster and create your first AI agent in under a minute.</p>
+    <a href="#" class="app-store-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      <div class="btn-text">
+        <span class="small">Download on the</span>
+        <span class="big">App Store</span>
+      </div>
+    </a>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <span>TaskMaster</span>
+      </div>
+
+      <nav class="footer-links">
+        <a href="support.html">Support</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
+      </nav>
+
+      <div class="footer-copyright">
+        <p>&copy; 2026 Adem Tengiz. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

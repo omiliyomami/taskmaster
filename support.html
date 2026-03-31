@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskMaster: AI Assistant — Support</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --accent: rgb(100, 211, 255);
+      --accent-dim: rgba(100, 211, 255, 0.15);
+      --accent-glow: rgba(100, 211, 255, 0.08);
+      --text: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.5);
+      --text-dim: rgba(255, 255, 255, 0.35);
+      --card-bg: rgba(255, 255, 255, 0.04);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --separator: rgba(255, 255, 255, 0.06);
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #616169 0%, #2e3036 30%, #1e1e22 70%);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -40%;
+      left: -20%;
+      width: 80%;
+      height: 80%;
+      background: radial-gradient(ellipse, rgba(100, 211, 255, 0.03) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+
+    /* Back nav */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      margin-bottom: 40px;
+      transition: opacity 0.2s;
+    }
+    .back-link:hover { opacity: 0.7; }
+    .back-link svg { width: 16px; height: 16px; }
+
+    /* Header */
+    .header {
+      margin-bottom: 48px;
+    }
+    .icon-circle {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: var(--accent-glow);
+      border: 1px solid var(--accent-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .icon-circle svg {
+      width: 28px;
+      height: 28px;
+      color: var(--accent);
+    }
+    .header h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      margin-bottom: 8px;
+    }
+    .header .subtitle {
+      color: var(--text-muted);
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.6;
+      max-width: 480px;
+    }
+    .header .app-name {
+      color: var(--accent);
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 32px;
+    }
+    .section-label {
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 12px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px;
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+    }
+    .card h2 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card h2 .icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    .card p, .card li {
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.7;
+    }
+    .card p + p {
+      margin-top: 10px;
+    }
+
+    /* Contact card */
+    .contact-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      overflow: hidden;
+    }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+    }
+    .contact-row + .contact-row {
+      border-top: 1px solid var(--separator);
+    }
+    .contact-row-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .contact-row-left svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+    .contact-row-left span {
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .contact-row a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+    .contact-row a:hover { opacity: 0.7; }
+    .contact-chevron {
+      width: 16px;
+      height: 16px;
+      color: rgba(255,255,255,0.15);
+    }
+
+    /* FAQ */
+    .faq-item {
+      padding: 16px 0;
+    }
+    .faq-item:first-child {
+      padding-top: 0;
+    }
+    .faq-item + .faq-item {
+      border-top: 1px solid var(--separator);
+    }
+    .faq-question {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .faq-question .q-icon {
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .faq-answer {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.7;
+      padding-left: 26px;
+    }
+
+    /* Links row card */
+    .links-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      overflow: hidden;
+    }
+    .link-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .link-row:hover {
+      background: rgba(255,255,255,0.02);
+    }
+    .link-row + .link-row {
+      border-top: 1px solid var(--separator);
+    }
+    .link-row-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .link-row-left svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+    .link-row-left span {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--separator);
+      text-align: center;
+    }
+    .footer p {
+      color: var(--text-dim);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .page {
+        padding: 40px 16px 60px;
+      }
+      .header h1 {
+        font-size: 26px;
+      }
+      .contact-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+    }
+
+    /* Fade in */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .header { animation: fadeUp 0.5s ease both; }
+    .section:nth-child(1) { animation: fadeUp 0.5s ease 0.05s both; }
+    .section:nth-child(2) { animation: fadeUp 0.5s ease 0.1s both; }
+    .section:nth-child(3) { animation: fadeUp 0.5s ease 0.15s both; }
+    .section:nth-child(4) { animation: fadeUp 0.5s ease 0.2s both; }
+    .section:nth-child(5) { animation: fadeUp 0.5s ease 0.25s both; }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Back -->
+    <a href="index.html" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      Back
+    </a>
+
+    <!-- Header -->
+    <div class="header">
+      <div class="icon-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <h1>Support</h1>
+      <p class="subtitle">Need help with <span class="app-name">TaskMaster: AI Assistant</span>? We're here for you. Check the FAQ below or reach out directly.</p>
+    </div>
+
+    <!-- Contact -->
+    <div class="section">
+      <p class="section-label">Contact Us</p>
+      <div class="contact-card">
+        <div class="contact-row">
+          <div class="contact-row-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>Email Support</span>
+          </div>
+          <a href="mailto:support@ademtengiz.com">support@ademtengiz.com</a>
+        </div>
+      </div>
+      <p style="color: var(--text-dim); font-size: 12px; margin-top: 10px; padding-left: 4px;">We typically respond within 24–48 hours.</p>
+    </div>
+
+    <!-- FAQ -->
+    <div class="section">
+      <p class="section-label">Frequently Asked Questions</p>
+      <div class="card">
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="q-icon">Q</span>
+            What is TaskMaster?
+          </div>
+          <p class="faq-answer">TaskMaster is an AI-powered assistant that lets you create automated tasks, schedule them, and receive clean reports delivered right on time. Think of it as your personal agent that works in the background.</p>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="q-icon">Q</span>
+            How do I create a task?
+          </div>
+          <p class="faq-answer">Open the app, tap the "+" button on the Tasks screen, describe what you want your AI agent to do, set a schedule, and you're all set. Your agent handles the rest.</p>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="q-icon">Q</span>
+            Is TaskMaster free to use?
+          </div>
+          <p class="faq-answer">TaskMaster is free to download with limited features. To unlock the full power of your AI assistant, you can subscribe to our premium plan.</p>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="q-icon">Q</span>
+            How do I manage or cancel my subscription?
+          </div>
+          <p class="faq-answer">Go to your iPhone's Settings → Apple ID → Subscriptions, then select TaskMaster to manage or cancel. You can also manage your subscription from within the app under Settings → Manage Subscription.</p>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="q-icon">Q</span>
+            The app is crashing. What should I do?
+          </div>
+          <p class="faq-answer">First, make sure you're running the latest version of TaskMaster from the App Store. Try restarting your device. If the issue persists, email us at support@ademtengiz.com with a description of what happened and your device model.</p>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="q-icon">Q</span>
+            How do I delete my account?
+          </div>
+          <p class="faq-answer">Open the app, go to Settings → Delete Account. This action is permanent and will remove all your data, tasks, and reports from our servers.</p>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="q-icon">Q</span>
+            Can I change my AI agent's name?
+          </div>
+          <p class="faq-answer">Currently, you set your agent's name during the initial setup. If you'd like to change it, you can contact us and we'll help you out.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Legal Links -->
+    <div class="section">
+      <p class="section-label">Legal</p>
+      <div class="links-card">
+        <a href="privacy.html" class="link-row">
+          <div class="link-row-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgb(100, 211, 255)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Privacy Policy</span>
+          </div>
+          <svg class="contact-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </a>
+        <a href="terms.html" class="link-row">
+          <div class="link-row-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgb(160, 140, 255)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span>Terms of Use</span>
+          </div>
+          <svg class="contact-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>&copy; 2026 Adem Tengiz. All rights reserved.</p>
+    </div>
+
+  </div>
+</body>
+</html>

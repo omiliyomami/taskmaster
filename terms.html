@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskMaster: AI Assistant — Terms of Use</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --accent: rgb(100, 211, 255);
+      --accent-dim: rgba(100, 211, 255, 0.15);
+      --accent-glow: rgba(100, 211, 255, 0.08);
+      --purple: rgb(160, 140, 255);
+      --purple-dim: rgba(160, 140, 255, 0.15);
+      --purple-glow: rgba(160, 140, 255, 0.08);
+      --text: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.5);
+      --text-dim: rgba(255, 255, 255, 0.35);
+      --card-bg: rgba(255, 255, 255, 0.04);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --separator: rgba(255, 255, 255, 0.06);
+      --danger: rgb(255, 100, 100);
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #616169 0%, #2e3036 30%, #1e1e22 70%);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -40%;
+      left: -20%;
+      width: 80%;
+      height: 80%;
+      background: radial-gradient(ellipse, rgba(160, 140, 255, 0.03) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+
+    /* Back nav */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      margin-bottom: 40px;
+      transition: opacity 0.2s;
+    }
+    .back-link:hover { opacity: 0.7; }
+    .back-link svg { width: 16px; height: 16px; }
+
+    /* Header */
+    .header {
+      margin-bottom: 48px;
+    }
+    .icon-circle {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: var(--purple-glow);
+      border: 1px solid var(--purple-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .icon-circle svg {
+      width: 28px;
+      height: 28px;
+      color: var(--purple);
+    }
+    .header h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      margin-bottom: 8px;
+    }
+    .header .effective-date {
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .header .app-name {
+      color: var(--accent);
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 32px;
+    }
+    .section-label {
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 12px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px;
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+    }
+    .card h2 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card h2 .icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    .card p, .card li {
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.7;
+    }
+    .card p + p {
+      margin-top: 10px;
+    }
+    .card ul {
+      list-style: none;
+      margin-top: 10px;
+    }
+    .card ul li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 6px;
+    }
+    .card ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--purple);
+      opacity: 0.5;
+    }
+    .card a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .card a:hover {
+      opacity: 0.7;
+    }
+
+    .card-separator {
+      height: 1px;
+      background: var(--separator);
+      margin: 16px 0;
+    }
+
+    /* Highlight / warning box */
+    .highlight-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--purple-glow);
+      border: 1px solid var(--purple-dim);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 12px;
+    }
+    .highlight-row .highlight-icon {
+      width: 18px;
+      height: 18px;
+      color: var(--purple);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .highlight-row p {
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .warning-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: rgba(255, 100, 100, 0.06);
+      border: 1px solid rgba(255, 100, 100, 0.12);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 12px;
+    }
+    .warning-row .warning-icon {
+      width: 18px;
+      height: 18px;
+      color: var(--danger);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .warning-row p {
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* Contact card */
+    .contact-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      overflow: hidden;
+    }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+    }
+    .contact-row-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .contact-row-left svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+    .contact-row-left span {
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .contact-row a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+    .contact-row a:hover { opacity: 0.7; }
+
+    /* Footer */
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--separator);
+      text-align: center;
+    }
+    .footer p {
+      color: var(--text-dim);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .page {
+        padding: 40px 16px 60px;
+      }
+      .header h1 {
+        font-size: 26px;
+      }
+      .contact-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+    }
+
+    /* Fade in */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .header { animation: fadeUp 0.5s ease both; }
+    .section:nth-child(1) { animation: fadeUp 0.5s ease 0.05s both; }
+    .section:nth-child(2) { animation: fadeUp 0.5s ease 0.1s both; }
+    .section:nth-child(3) { animation: fadeUp 0.5s ease 0.15s both; }
+    .section:nth-child(4) { animation: fadeUp 0.5s ease 0.2s both; }
+    .section:nth-child(5) { animation: fadeUp 0.5s ease 0.25s both; }
+    .section:nth-child(6) { animation: fadeUp 0.5s ease 0.3s both; }
+    .section:nth-child(7) { animation: fadeUp 0.5s ease 0.35s both; }
+    .section:nth-child(8) { animation: fadeUp 0.5s ease 0.4s both; }
+    .section:nth-child(9) { animation: fadeUp 0.5s ease 0.45s both; }
+    .section:nth-child(10) { animation: fadeUp 0.5s ease 0.5s both; }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Back -->
+    <a href="index.html" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      Back
+    </a>
+
+    <!-- Header -->
+    <div class="header">
+      <div class="icon-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      </div>
+      <h1>Terms of Use</h1>
+      <p class="effective-date"><span class="app-name">TaskMaster: AI Assistant</span> · Effective March 31, 2026</p>
+    </div>
+
+    <!-- Agreement -->
+    <div class="section">
+      <div class="card">
+        <p>These Terms of Use ("Terms") govern your use of the TaskMaster: AI Assistant mobile application ("App") operated by Adem Tengiz ("we", "us", "our"). By creating an account or using the App, you agree to be bound by these Terms. If you do not agree, please do not use the App.</p>
+      </div>
+    </div>
+
+    <!-- Eligibility -->
+    <div class="section">
+      <p class="section-label">Eligibility</p>
+      <div class="card">
+        <h2>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="rgb(0, 255, 191)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Eligibility
+        </h2>
+        <p>You must be at least 13 years of age to use TaskMaster. By using the App, you represent that you meet this age requirement. If you are under 18, you confirm that you have obtained parental or guardian consent to use the App.</p>
+      </div>
+    </div>
+
+    <!-- Account -->
+    <div class="section">
+      <p class="section-label">Your Account</p>
+      <div class="card">
+        <h2>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          Account Responsibilities
+        </h2>
+        <p>You are responsible for maintaining the security of your account credentials and for all activity that occurs under your account. You agree to provide accurate information when creating your account and to keep it up to date.</p>
+        <p>You must notify us immediately if you suspect any unauthorised access to your account.</p>
+      </div>
+    </div>
+
+    <!-- Acceptable Use -->
+    <div class="section">
+      <p class="section-label">Acceptable Use</p>
+      <div class="card">
+        <h2>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="rgb(255, 214, 100)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Acceptable Use
+        </h2>
+        <p>When using TaskMaster, you agree not to:</p>
+        <ul>
+          <li>Use the App for any unlawful, harmful, or fraudulent purpose</li>
+          <li>Submit content that is abusive, harassing, threatening, or violates the rights of others</li>
+          <li>Attempt to reverse engineer, decompile, or disassemble any part of the App</li>
+          <li>Interfere with or disrupt the App's servers, networks, or infrastructure</li>
+          <li>Use the App to generate spam, misleading content, or malicious material</li>
+          <li>Create multiple accounts for abusive purposes</li>
+          <li>Resell, redistribute, or commercially exploit the App or its outputs without permission</li>
+        </ul>
+
+        <div class="warning-row">
+          <svg class="warning-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <p>Violation of these terms may result in immediate suspension or termination of your account without prior notice.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Content -->
+    <div class="section">
+      <p class="section-label">AI-Generated Content</p>
+      <div class="card">
+        <h2>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="rgb(255, 179, 64)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          AI-Generated Content
+        </h2>
+        <p>TaskMaster uses the Google Gemini API to generate reports and process tasks. You acknowledge and agree that:</p>
+        <ul>
+          <li>AI-generated content may not always be accurate, complete, or up to date</li>
+          <li>You are solely responsible for reviewing and verifying any AI-generated output before relying on it</li>
+          <li>We do not guarantee the accuracy, reliability, or suitability of AI-generated content for any specific purpose</li>
+          <li>AI outputs should not be used as a substitute for professional advice (legal, financial, medical, or otherwise)</li>
+        </ul>
+
+        <div class="highlight-row">
+          <svg class="highlight-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <p>You retain ownership of the content you create within TaskMaster. However, by using the App, you grant us a limited licence to process your content as needed to provide the service.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subscriptions -->
+    <div class="section">
+      <p class="section-label">Subscriptions &amp; Payments</p>
+      <div class="card">
+        <h2>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="rgb(255, 214, 100)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Subscriptions &amp; Payments
+        </h2>
+        <p>TaskMaster offers auto-renewable subscriptions to unlock premium features. By subscribing, you agree that:</p>
+        <ul>
+          <li>Payment is processed by Apple through the App Store and is subject to Apple's terms</li>
+          <li>Subscriptions automatically renew unless cancelled at least 24 hours before the end of the current period</li>
+          <li>You can manage or cancel your subscription through your Apple ID settings or within the App</li>
+          <li>We do not collect or store your payment card details</li>
+          <li>Refunds are handled by Apple in accordance with their refund policy</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Limitation of Liability -->
+    <div class="section">
+      <p class="section-label">Liability</p>
+      <div class="card">
+        <h2>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Limitation of Liability
+        </h2>
+        <p>To the maximum extent permitted by law, TaskMaster and its developer shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the App.</p>
+        <p>The App is provided on an "as is" and "as available" basis without warranties of any kind, whether express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, and non-infringement.</p>
+        <p>We do not warrant that the App will be uninterrupted, error-free, or free of harmful components.</p>
+      </div>
+    </div>
+
+    <!-- Termination -->
+    <div class="section">
+      <p class="section-label">Termination</p>
+      <div class="card">
+        <h2>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          Termination
+        </h2>
+        <p>We reserve the right to suspend or terminate your account at any time if you violate these Terms or engage in behaviour that we determine to be harmful to the App, its users, or its infrastructure.</p>
+        <p>You may delete your account at any time from within the App under Settings. Upon deletion, all your data will be permanently removed from our servers.</p>
+      </div>
+    </div>
+
+    <!-- Changes -->
+    <div class="section">
+      <p class="section-label">Updates</p>
+      <div class="card">
+        <h2>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+          Changes to These Terms
+        </h2>
+        <p>We may update these Terms from time to time. When we make significant changes, we will notify you through the App or by email. Your continued use of the App after changes take effect constitutes acceptance of the revised Terms.</p>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="section">
+      <p class="section-label">Contact</p>
+      <div class="contact-card">
+        <div class="contact-row">
+          <div class="contact-row-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>Questions?</span>
+          </div>
+          <a href="mailto:support@ademtengiz.com">support@ademtengiz.com</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>&copy; 2026 Adem Tengiz. All rights reserved.</p>
+    </div>
+
+  </div>
+</body>
+</html>

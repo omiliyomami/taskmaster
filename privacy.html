@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskMaster: AI Assistant — Privacy Policy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --accent: rgb(100, 211, 255);
+      --accent-dim: rgba(100, 211, 255, 0.15);
+      --accent-glow: rgba(100, 211, 255, 0.08);
+      --text: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.5);
+      --text-dim: rgba(255, 255, 255, 0.35);
+      --card-bg: rgba(255, 255, 255, 0.04);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --separator: rgba(255, 255, 255, 0.06);
+      --danger: rgb(255, 100, 100);
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #616169 0%, #2e3036 30%, #1e1e22 70%);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Ambient glow */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -40%;
+      left: -20%;
+      width: 80%;
+      height: 80%;
+      background: radial-gradient(ellipse, rgba(100, 211, 255, 0.03) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+
+    /* Back nav */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      margin-bottom: 40px;
+      transition: opacity 0.2s;
+    }
+    .back-link:hover { opacity: 0.7; }
+    .back-link svg { width: 16px; height: 16px; }
+
+    /* Header */
+    .header {
+      margin-bottom: 48px;
+    }
+    .icon-circle {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: var(--accent-glow);
+      border: 1px solid var(--accent-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .icon-circle svg {
+      width: 28px;
+      height: 28px;
+      color: var(--accent);
+    }
+    .header h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      margin-bottom: 8px;
+    }
+    .header .app-name {
+      color: var(--accent);
+    }
+    .header .effective-date {
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 32px;
+    }
+    .section-label {
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 12px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px;
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+    }
+    .card h2 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card h2 .icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    .card p, .card li {
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.7;
+    }
+    .card p + p {
+      margin-top: 10px;
+    }
+    .card ul {
+      list-style: none;
+      margin-top: 10px;
+    }
+    .card ul li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 6px;
+    }
+    .card ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+
+    /* Separator inside cards */
+    .card-separator {
+      height: 1px;
+      background: var(--separator);
+      margin: 16px 0;
+    }
+
+    /* Highlight box */
+    .highlight-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--accent-glow);
+      border: 1px solid var(--accent-dim);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 12px;
+    }
+    .highlight-row .highlight-icon {
+      width: 18px;
+      height: 18px;
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .highlight-row p {
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* Contact card */
+    .contact-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      overflow: hidden;
+    }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+    }
+    .contact-row-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .contact-row-left svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+    .contact-row-left span {
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .contact-row a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+    .contact-row a:hover { opacity: 0.7; }
+
+    /* Footer */
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--separator);
+      text-align: center;
+    }
+    .footer p {
+      color: var(--text-dim);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .page {
+        padding: 40px 16px 60px;
+      }
+      .header h1 {
+        font-size: 26px;
+      }
+    }
+
+    /* Fade in animation */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .header { animation: fadeUp 0.5s ease both; }
+    .section:nth-child(1) { animation: fadeUp 0.5s ease 0.05s both; }
+    .section:nth-child(2) { animation: fadeUp 0.5s ease 0.1s both; }
+    .section:nth-child(3) { animation: fadeUp 0.5s ease 0.15s both; }
+    .section:nth-child(4) { animation: fadeUp 0.5s ease 0.2s both; }
+    .section:nth-child(5) { animation: fadeUp 0.5s ease 0.25s both; }
+    .section:nth-child(6) { animation: fadeUp 0.5s ease 0.3s both; }
+    .section:nth-child(7) { animation: fadeUp 0.5s ease 0.35s both; }
+    .section:nth-child(8) { animation: fadeUp 0.5s ease 0.4s both; }
+    .section:nth-child(9) { animation: fadeUp 0.5s ease 0.45s both; }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Back -->
+    <a href="index.html" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      Back
+    </a>
+
+    <!-- Header -->
+    <div class="header">
+      <div class="icon-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h1>Privacy Policy</h1>
+      <p class="effective-date"><span class="app-name">TaskMaster: AI Assistant</span> · Effective March 31, 2026</p>
+    </div>
+
+    <!-- Intro -->
+    <div class="section">
+      <div class="card">
+        <p>Adem Tengiz ("we", "us", "our") operates the TaskMaster: AI Assistant mobile application. This Privacy Policy explains how we collect, use, and protect your personal information when you use our app.</p>
+        <p>By creating an account and using TaskMaster, you agree to the collection and use of information as described in this policy.</p>
+      </div>
+    </div>
+
+    <!-- Data We Collect -->
+    <div class="section">
+      <p class="section-label">Data Collection</p>
+      <div class="card">
+        <h2>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="rgb(160, 140, 255)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Information We Collect
+        </h2>
+        <p>When you create an account and use TaskMaster, we collect the following information:</p>
+        <ul>
+          <li><strong style="color: #fff;">Name</strong> — used for account identification and personalisation</li>
+          <li><strong style="color: #fff;">Email address</strong> — used for account creation, authentication, and communication</li>
+          <li><strong style="color: #fff;">User-generated content</strong> — tasks, prompts, schedules, and AI-generated reports you create within the app</li>
+          <li><strong style="color: #fff;">User ID &amp; Device ID</strong> — used for account identification and app functionality</li>
+          <li><strong style="color: #fff;">Purchase history</strong> — used to manage your subscription status</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- How We Use -->
+    <div class="section">
+      <p class="section-label">Data Usage</p>
+      <div class="card">
+        <h2>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="rgb(100, 211, 255)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          How We Use Your Information
+        </h2>
+        <p>We use your information to:</p>
+        <ul>
+          <li>Provide, maintain, and improve the TaskMaster app and its features</li>
+          <li>Process your tasks and deliver AI-generated reports</li>
+          <li>Manage your account and subscription</li>
+          <li>Communicate with you about updates, support, and service-related matters</li>
+          <li>Detect and prevent fraud or abuse</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Third Party -->
+    <div class="section">
+      <p class="section-label">Third-Party Services</p>
+      <div class="card">
+        <h2>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="rgb(255, 179, 64)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Third-Party Services
+        </h2>
+        <p>TaskMaster uses the <strong style="color: #fff;">Google Gemini API</strong> to process your tasks and generate AI-powered reports. When you create or run a task, your prompts and task content may be sent to Google's servers for processing.</p>
+        <p>Please review <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none;">Google's Privacy Policy</a> for information on how Google handles data.</p>
+
+        <div class="card-separator"></div>
+
+        <p>Subscription payments are processed by <strong style="color: #fff;">Apple</strong> through the App Store. We do not collect or store your payment card details. All payment information is handled directly by Apple.</p>
+      </div>
+    </div>
+
+    <!-- Data Storage -->
+    <div class="section">
+      <p class="section-label">Storage &amp; Security</p>
+      <div class="card">
+        <h2>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="rgb(0, 255, 191)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          Data Storage &amp; Security
+        </h2>
+        <p>Your data is stored on secure cloud servers. We use industry-standard security measures, including encryption in transit and at rest, to protect your personal information.</p>
+        <p>While we strive to protect your data, no method of electronic storage or transmission is 100% secure. We cannot guarantee absolute security.</p>
+      </div>
+    </div>
+
+    <!-- Your Rights -->
+    <div class="section">
+      <p class="section-label">Your Rights</p>
+      <div class="card">
+        <h2>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="rgb(255, 214, 100)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Your Rights &amp; Choices
+        </h2>
+        <p>You have the right to:</p>
+        <ul>
+          <li><strong style="color: #fff;">Delete your account</strong> — you can permanently delete your account and all associated data directly within the app at any time from Settings</li>
+          <li><strong style="color: #fff;">Request your data</strong> — contact us to request a copy of the personal data we hold about you</li>
+          <li><strong style="color: #fff;">Update your information</strong> — you can update your account details within the app</li>
+        </ul>
+
+        <div class="highlight-row">
+          <svg class="highlight-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <p>When you delete your account, all your data including tasks, reports, and personal information is permanently removed from our servers.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Children -->
+    <div class="section">
+      <p class="section-label">Children's Privacy</p>
+      <div class="card">
+        <h2>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="rgb(255, 100, 100)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Children's Privacy
+        </h2>
+        <p>TaskMaster is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If we become aware that a child under 13 has provided us with personal data, we will take steps to delete that information promptly.</p>
+      </div>
+    </div>
+
+    <!-- Changes -->
+    <div class="section">
+      <p class="section-label">Updates</p>
+      <div class="card">
+        <h2>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+          Changes to This Policy
+        </h2>
+        <p>We may update this Privacy Policy from time to time. When we make significant changes, we will notify you through the app or via email. We encourage you to review this page periodically.</p>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="section">
+      <p class="section-label">Contact</p>
+      <div class="contact-card">
+        <div class="contact-row">
+          <div class="contact-row-left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>Email Us</span>
+          </div>
+          <a href="mailto:support@ademtengiz.com">support@ademtengiz.com</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>&copy; 2026 Adem Tengiz. All rights reserved.</p>
+    </div>
+
+  </div>
+</body>
+</html>
